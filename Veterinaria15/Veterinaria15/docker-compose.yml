@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vetsys-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - vetsys-network
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: vetsys-backend
+    ports:
+      - "3003:3001"
+    networks:
+      - vetsys-network
+
+networks:
+  vetsys-network:
+    driver: bridge
