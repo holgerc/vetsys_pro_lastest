@@ -7,7 +7,7 @@ const { Pool } = pg;
 const pool = new Pool({
   user: 'admin',
   host: '68.183.157.159',
-  database: 'vetsys_pro',
+  database: 'clinica-veterinaria2',
   password: 'vetsysad24-Ec',
   port: 5433,
 });
