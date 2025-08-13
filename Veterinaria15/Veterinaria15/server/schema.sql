@@ -1,4 +1,26 @@
 -- This script defines the database schema for VetSys Pro
+
+-- Drop existing tables if they exist
+DROP TABLE IF EXISTS internal_consumptions CASCADE;
+DROP TABLE IF EXISTS expenses CASCADE;
+DROP TABLE IF EXISTS expense_categories CASCADE;
+DROP TABLE IF EXISTS cashier_shifts CASCADE;
+DROP TABLE IF EXISTS points_of_sale CASCADE;
+DROP TABLE IF EXISTS hospitalizations CASCADE;
+DROP TABLE IF EXISTS medical_records CASCADE;
+DROP TABLE IF EXISTS prescriptions CASCADE;
+DROP TABLE IF EXISTS reminders CASCADE;
+DROP TABLE IF EXISTS invoices CASCADE;
+DROP TABLE IF EXISTS purchases CASCADE;
+DROP TABLE IF EXISTS suppliers CASCADE;
+DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS appointments CASCADE;
+DROP TABLE IF EXISTS pets CASCADE;
+DROP TABLE IF EXISTS clients CASCADE;
+DROP TABLE IF EXISTS companies CASCADE;
+DROP TABLE IF EXISTS roles CASCADE;
+DROP TABLE IF EXISTS vets CASCADE;
+
 -- Enables UUID generation
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
