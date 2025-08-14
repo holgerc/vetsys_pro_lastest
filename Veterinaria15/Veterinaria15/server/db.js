@@ -160,7 +160,13 @@ export const getVetsByCompany = async (companyId) => {
 
 export const getClientById = genericGetById('clients');
 export const getPetById = genericGetById('pets');
-export const getInvoiceById = genericGetById('invoices');
+export const getInvoiceById = async (id) => {
+    const invoice = (await query('SELECT * FROM invoices WHERE id = $1', [id]))[0];
+    if (!invoice) return null;
+    const client = (await query('SELECT id, name, email, phone, address, identification_number, billing_address, member_since, balance FROM clients WHERE id = $1', [invoice.clientId]))[0] || null;
+    const pet = invoice.petId ? (await query('SELECT * FROM pets WHERE id = $1', [invoice.petId]))[0] : null;
+    return { ...invoice, client, pet };
+};
 
 export const addClient = (companyId, data) => genericAdd('clients')(companyId, { ...data, pets: [], balance: 0, memberSince: new Date().toISOString() });
 export const addPet = (companyId, ownerId, data) => genericAdd('pets')(companyId, {
@@ -435,7 +441,8 @@ export const updateInvoice = async (id, updates) => {
         updates = { ...updates, subtotal, totalDiscount, tax, total, balanceDue: total - originalInvoice.amountPaid };
     }
     
-    return genericUpdate('invoices')(id, updates);
+    await genericUpdate('invoices')(id, updates);
+    return await getInvoiceById(id);
 };
 
 export const recordPayment = async (invoiceId, paymentData) => {
